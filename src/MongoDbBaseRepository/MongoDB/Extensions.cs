@@ -8,7 +8,7 @@ namespace MongoDbBaseRepository.MongoDB
     {
         public static IServiceCollection AddMongo(this IServiceCollection services)
         {
-            services.AddScoped(serviceProvider =>
+            services.AddSingleton(serviceProvider =>
             {
                 var configuration = serviceProvider.GetService<IConfiguration>();
                 var connectionString = configuration!.GetSection("MongoSettings:ConnectionString").Value;
@@ -26,7 +26,7 @@ namespace MongoDbBaseRepository.MongoDB
         public static IServiceCollection AddMongoRepository<T, K>(this IServiceCollection services, String collectionName)
             where T : IEntity<K>
         {
-            services.AddSingleton(serviceProvider =>
+            services.AddSingleton<IRepository<T, K>, MongoRepository<T, K>>(serviceProvider =>
             {
                 var database = serviceProvider.GetService<IMongoDatabase>();
                 return new MongoRepository<T, K>(database!, collectionName);
