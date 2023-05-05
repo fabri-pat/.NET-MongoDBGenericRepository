@@ -1,5 +1,6 @@
 
 using System.Linq.Expressions;
+using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 
 namespace MongoDbBaseRepository.MongoDB
@@ -12,6 +13,12 @@ namespace MongoDbBaseRepository.MongoDB
 
         public MongoRepository(IMongoDatabase database, string collectionName)
         {
+            dbCollection = database.GetCollection<T>(collectionName);
+        }
+
+        public MongoRepository(IServiceProvider serviceProvider, string collectionName)
+        {
+            IMongoDatabase database = serviceProvider.GetService<IMongoDatabase>()!;
             dbCollection = database.GetCollection<T>(collectionName);
         }
 

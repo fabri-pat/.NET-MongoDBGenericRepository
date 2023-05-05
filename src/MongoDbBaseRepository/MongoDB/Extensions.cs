@@ -6,6 +6,21 @@ namespace MongoDbBaseRepository.MongoDB
 {
     public static class Extensions
     {
+        /// <summary>
+        /// Method used in program.cs file to add MongoDB repository as singleton.
+        /// In appsettings.json, it must be declared the connection string and the database name.     
+        ///  
+        /// <example>
+        /// <code>   
+        ///     "MongoSettings":{
+        ///         "ConnectionString": CONNECTIONSTRING, 
+        ///         "DatabaseName": DATABASENAME
+        ///    }
+        ///    
+        /// </code>
+        /// </example>
+        /// </summary>
+        /// <returns>Services with declared mongo repository as singleton.</returns>
         public static IServiceCollection AddMongo(this IServiceCollection services)
         {
             services.AddSingleton(serviceProvider =>
@@ -23,6 +38,14 @@ namespace MongoDbBaseRepository.MongoDB
             return services;
         }
 
+        /// <summary>
+        /// Method used in program.cs file to register generic interface to its implementation
+        /// with specified domain types and the name of provided mongoDB collection.
+        /// </summary>
+        /// <typeparam name="T">The domain type the repository manages</typeparam>
+        /// <typeparam name="K">The domain type's id type</typeparam>
+        /// <param name="collectionName">The name of mongoDB collection</param>
+        /// <returns>Services with declared mongo repository as singleton.</returns>
         public static IServiceCollection AddMongoRepository<T, K>(this IServiceCollection services, String collectionName)
             where T : IEntity<K>
         {
