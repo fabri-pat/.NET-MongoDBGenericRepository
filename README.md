@@ -133,7 +133,7 @@ public class UserService : IUserService
 
 #
 
-# LICENCE
+# LICENSE
 
 The MIT License (MIT)
 
