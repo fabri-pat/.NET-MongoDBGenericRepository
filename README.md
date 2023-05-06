@@ -70,9 +70,6 @@ Example:
 public class UserService : IUserService
 {
     private readonly IRepository<User, Guid> userRepository;  */
-    private readonly IEMailService emailService;
-    private readonly ITokenService tokenService;
-    private readonly IPasswordService passwordService;
 
     public UserService(IRepository<User, Guid> userRepository)
     {
@@ -125,9 +122,6 @@ Example:
 public class UserService : IUserService
 {
     private readonly IUserRepository userRepository;
-    private readonly IEMailService emailService;
-    private readonly ITokenService tokenService;
-    private readonly IPasswordService passwordService;
 
     public UserService(
         IUserRepository userRepository)
